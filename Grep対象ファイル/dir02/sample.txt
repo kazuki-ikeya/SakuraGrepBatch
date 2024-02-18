@@ -29,5 +29,16 @@ if hello == "world" {
 		sample += "add"
 		sample += "add"
 		sample += "add"
+		sample += "add"
+		sample += "add"
+		sample += "add"
+		sample += "add"
+		sample += "add"
+		sample += "add"
+		sample += "add"
+		sample += "add"
+		sample += "add"
+		sample += "add"
+		sample += "add"
 	}
 

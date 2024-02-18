@@ -1,8 +1,9 @@
-1				sample	sample
-2			R	sample	sample
-3				sample	sample
-4	dir01			sample	sample
-5		*.txt;		sample	sample
-6	dir01	sample.txt;		sample	sample
-7	dir01	sample.txt;		delete	
-8			R	^\t\tvar sample = "sample"	\t\tvar sample = "sample"\r\n\t\tsample += "add"
+1				sample	somple
+2			R	(sample)	$1somple
+3			R	\t	\t\t
+4				sample	somple
+5	dir01			sample	somple
+6		*.txt;		sample	somple
+7	dir01	sample.txt;		sample	somple
+8	dir01	sample.txt;		delete	
+9			R	^\t\tvar sample = "sample"	\t\tvar sample = "sample"\r\n\t\tsample += "add"

@@ -4,7 +4,7 @@
 ŒŸõA’uŠ·‚É‘Î‰ž‚µ‚Ä‚¢‚Ü‚·B
 
 ‚Ü‚½AŽÀsŒ‹‰Ê‚É‘Î‚·‚é•ªÍ“™‚ðs‚¤‚½‚ß‚ÉAŒ‹‰Ê‚ðExcel‚É’£‚è•t‚¯‚·‚é‚±‚Æ‚à‘z’è‚³‚ê‚Ä‚¢‚Ü‚·B
-‚»‚ÌŠÖŒW‚ÅAŒŸõŒ‹‰Ê‚É‘Î‚µƒ^ƒu‚ª”¼ŠpƒXƒy[ƒX4‚Â‚É•ÏŠ·‚·‚é‰ÁH‚ª‚È‚³‚ê‚Ä‚¢‚Ü‚·B‚²—¹³‚­‚¾‚³‚¢B
+‚»‚ÌŠÖŒW‚ÅAŒŸõŒ‹‰Ê‚É‘Î‚µƒ^ƒu‚ª”¼ŠpƒXƒy[ƒX‚É•ÏŠ·‚·‚é‰ÁH‚ª‚È‚³‚ê‚Ä‚¢‚Ü‚·B‚²—¹³‚­‚¾‚³‚¢B
 
 –{ƒoƒbƒ`‚ÍPowerShell‚ð—p‚¢‚Ä‚¢‚Ü‚·‚ªAƒoƒbƒ`‹N“®‚Í’Êí‚ÌƒRƒ}ƒ“ƒh‚©‚çs‚¤‚æ‚¤‚Éì‚ç‚ê‚Ä‚¢‚Ü‚·B
 
@@ -21,7 +21,7 @@ targetDir               FGrepƒtƒHƒ‹ƒ_ƒpƒX‚ðÝ’è‚µ‚Ü‚·B
 isTargetDirRelationPath FtargetDir‚ð‘Š‘ÎƒpƒX‚ÅŽw’è‚·‚éê‡‚Í1‚ðÝ’è‚µ‚Ü‚·B
 grepMode                FGrep‚ÌŒŸõ‚Ì‚Ý‚ðs‚¢‚½‚¢ê‡‚ÍSA’uŠ·‚ðs‚¢‚½‚¢ê‡‚ÍR‚ðÝ’è‚µ‚Ü‚·B
 baseFileExtention       FGrep‚µ‚½‚¢Šg’£Žq‚ðÝ’è‚µ‚Ü‚·B
-isOutLogDetailTsv       F’Êí‚ÌƒTƒNƒ‰ƒGƒfƒBƒ^‚ÌƒƒO‚ðo—Í‚µ‚½‚¢ê‡‚Í0‚ðÝ’è‚µ‚Ü‚·B
+isOutLogTsv             F’Êí‚ÌƒTƒNƒ‰ƒGƒfƒBƒ^‚ÌƒƒO‚ðo—Í‚µ‚½‚¢ê‡‚Í0‚ðÝ’è‚µ‚Ü‚·B
 baseGrepOption          FƒTƒNƒ‰ƒGƒfƒBƒ^‚ÌGrepƒIƒvƒVƒ‡ƒ“‚Å‚·B³‹K•\Œ»‚µ‚©Žg‚í‚È‚¢ê‡AR‚ð’Ç‰Á‚µ‚Ä‚­‚¾‚³‚¢Bi•â‘«‚Pj
 
 ã‹LˆÈŠO‚ÌÝ’è‚ÍAuconfig.ps1v“à‚Ìà–¾‚æ‚è”CˆÓ‚É•ÏX‚µ‚Ä‚­‚¾‚³‚¢B
@@ -61,7 +61,7 @@ P : ŠY“–s‚ðo—Í^–¢Žw’èŽž‚ÍŠY“–•”•ª‚¾‚¯o—Í
 W : ’PŒê’PˆÊ‚Å’T‚·
 1|2|3 : Œ‹‰Êo—ÍŒ`Ž®B1‚©2‚©3‚Ì‚Ç‚ê‚©‚ðŽw’è‚µ‚Ü‚·B(1=ƒm[ƒ}ƒ‹A2=ƒtƒ@ƒCƒ‹–ˆA3=Œ‹‰Ê‚Ì‚Ý)
 K : -GCODE=99‚Æ“¯‚¶ˆÓ–¡‚Å‚·BŒÝŠ·«‚Ì‚½‚ß‚¾‚¯‚ÉŽc‚³‚ê‚Ä‚¢‚Ü‚·B
-F : ƒtƒ@ƒCƒ‹–ˆÅ‰‚Ì‚Ý
+F : ƒtƒ@ƒCƒ‹–ˆÅ‰‚Ì‚Ý(ŒŸõ‚Ì‚Ý)
 B : ƒx[ƒXƒtƒHƒ‹ƒ_[•\Ž¦
 G : ƒtƒHƒ‹ƒ_[–ˆ‚É•\Ž¦
 X : GrepŽÀsŒãƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ðˆÚ“®‚µ‚È‚¢
@@ -71,7 +71,7 @@ U : •W€o—Í‚Éo—Í‚µAGrep‰æ–Ê‚Éƒf[ƒ^‚ð•\Ž¦‚µ‚È‚¢ ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“‚©‚çƒpƒCƒv‚âƒŠƒ
 H : ƒwƒbƒ_[Eƒtƒbƒ^[‚ðo—Í‚µ‚È‚¢(sakura:2.2.0.0ˆÈ~)
 
 ˆÈ‰º‚Íuconfig.ps1v‚ÌÚ×Ý’è‚ÅÝ’è‚µ‚Ä‚¢‚Ü‚·i•ÏX‰Âj
-S
+SL
 
 ˆÈ‰º‚ÍƒVƒXƒeƒ€‚Å‹­§“I‚ÉÝ’è‚³‚ê‚Ü‚·Bi•ÏX•s‰Âj
 1XPU

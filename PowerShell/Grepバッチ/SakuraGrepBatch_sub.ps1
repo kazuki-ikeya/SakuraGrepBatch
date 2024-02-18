@@ -19,7 +19,7 @@ $filePath = Join-Path $scriptDirectory "$keywordsFile"
 $outDir="$scriptDirectory"
 $outLogDir="$scriptDirectory\logs"
 New-Item -ItemType Directory -Path $outLogDir -ErrorAction SilentlyContinue
-if ($isOutLogDetailTsv -eq 1) {
+if ($isOutLogTsv -eq 1) {
 	New-Item -ItemType Directory -Path $outLogDir\tmp -ErrorAction SilentlyContinue
 }
 
@@ -41,8 +41,11 @@ $GREPR=""
 $GCODE=99
 
 # ヘッダー出力
-if (($isOutLogDetailTsv -eq 1) -And ($isOutLogTsvHeader -eq 1)) {
+if (($isOutLogTsv -eq 1) -And ($isOutLogTsvHeader -eq 1)) {
 	$tsvHeader="No	フォルダ指定	ファイル指定	検索設定	検索文字列	フォルダ	ファイル名	行位置	文字コード	内容"
+	if ($isOutputReplacedResult -eq 1) {
+		$tsvHeader+="	置換想定結果"
+	}
 	# tsvに追記
 	$tsvHeader | Add-Content -Path "$outTsvPath"
 }
@@ -81,7 +84,7 @@ foreach ($row in $data) {
 	# ダブルクォーテーションのエスケープ
 	$GKEY = $GKEY -replace """", """"""
 	
-	if ($grepMode -eq "R") {
+	if ($grepMode -eq "R" -or $isOutputReplacedResult -eq 1) {
 		# 置換文字列
 		$GREPR="$($row.GrepRepr)"
 		# ダブルクォーテーションのエスケープ
@@ -89,46 +92,68 @@ foreach ($row in $data) {
 	}
 	
 	# 詳細出力する場合、内容を加工する
-	if ($isOutLogDetailTsv -eq 1) {
+	if ($isOutLogTsv -eq 1) {
 		# Tsv出力
 		
 		# tsvファイル
 		$outTmpTsvFile="greplog_$exeNo.tsv"
 		$outTmpTsvPath="$outTmpLogDir\$outTmpTsvFile"
 		
+		# Grep実行
 		if ($grepMode -eq "R") {
 			& $sakura -GREPMODE -GFOLDER="$GFOLDER" -GOPT="$GOPT" -GFILE="$GFILE" -GCODE="$GCODE" -GKEY="$GKEY" -GREPR="$GREPR" | Set-Content -Path "$outTmpTsvPath"
 		} else {
 			& $sakura -GREPMODE -GFOLDER="$GFOLDER" -GOPT="$GOPT" -GFILE="$GFILE" -GCODE="$GCODE" -GKEY="$GKEY" | Set-Content -Path "$outTmpTsvPath"
 		}
+		
 		# 出力した結果を読込する
 		$sakuraResult = Get-Content -Path "$outTmpTsvPath" -ErrorAction SilentlyContinue
 		if ($sakuraResult -ne "") {
-		
+			
 			# タブの除去
 			$tsvGKEY="`t"
-			$tsvGREPR=""
+			$tsvGREPR=$convertedTabString
 			$sakuraResult = $sakuraResult -replace $tsvGKEY, $tsvGREPR
 			
 			# tsv加工:タブ分割：拡張子
-			$tsvGKEY="(\.[a-zA-Z]+(?=\([0-9]))"
-			$tsvGREPR="`$1`t"
+			$tsvGKEY="(^.*?)(\.[a-zA-Z]+(?=\([0-9]))"
+			$tsvGREPR="`$1`$2`t"
 			$sakuraResult = $sakuraResult -replace $tsvGKEY, $tsvGREPR
 			
 			# tsv加工:タブ分割：ファイル（※拡張子の後に行う必要あり）
-			$tsvGKEY="\\([^\\\t]*)\t"
-			$tsvGREPR="`t`$1`t"
+			$tsvGKEY="(^.*?)\\([^\\\t]*)\t"
+			$tsvGREPR="`$1`t`$2`t"
 			$sakuraResult = $sakuraResult -replace $tsvGKEY, $tsvGREPR
 			
 			# tsv加工:タブ分割：行位置
-			$tsvGKEY="(\t\(.+\))\s\s"
-			$tsvGREPR="`$1`t"
+			$tsvGKEY="(^.*?)(\t\(.+\))\s\s"
+			$tsvGREPR="`$1`$2`t"
 			$sakuraResult = $sakuraResult -replace $tsvGKEY, $tsvGREPR
 			
 			# tsv加工:タブ分割：文字コード
-			$tsvGKEY="(\t\[.+\]):\s"
-			$tsvGREPR="`$1`t"
+			$tsvGKEY="(^.*?)(\t\[.+\]):\s"
+			$tsvGREPR="`$1`$2`t"
 			$sakuraResult = $sakuraResult -replace $tsvGKEY, $tsvGREPR
+			
+			if ($isOutputReplacedResult -eq 1) {
+				# tsv加工:追記：置換結果予測
+				$tempResultArray = @()
+				foreach($tempItem in $sakuraResult) {
+					$tempTarget = $tempItem -replace ".+`t", ""
+					$tempGKEY=$GKEY
+					$tempGREPR=$GREPR
+				
+					if ($GOPT.Contains("R")){
+						$tempGREPR=$tempGREPR.Replace("$", "`$")
+						$tempGREPR=$tempGREPR.Replace("\t", $convertedTabString)
+						$tempResult = $tempTarget -replace $tempGKEY, $tempGREPR
+					} else {
+						$tempResult = $tempTarget.Replace($tempGKEY, $tempGREPR)
+					}
+					$tempResultArray += "$tempItem`t$tempResult"
+				}
+				$sakuraResult = $tempResultArray
+			}
 			
 			# tsv加工:実行情報追加（処理の最後に実行する）
 			$outKeywords="$($row.No)	$($row.TargetDir)	$($row.TargetFile)	$($row.GrepOption)	$($row.GrepKey)	"
@@ -141,6 +166,7 @@ foreach ($row in $data) {
 	} else {
 		# 標準log出力
 		
+		# Grep実行
 		if ($grepMode -eq "R") {
 			& $sakura -GREPMODE -GFOLDER="$GFOLDER" -GOPT="$GOPT" -GFILE="$GFILE" -GCODE="$GCODE" -GKEY="$GKEY" -GREPR="$GREPR" | Add-Content -Path "$outLogPath"
 		} else {

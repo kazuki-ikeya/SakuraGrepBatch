@@ -14,17 +14,23 @@ if ($isTargetDirRelationPath -eq 1) {
 }
 
 # grepMode：検索・置換実行切替（S:検索、R:置換）
-$grepMode="S"
+$grepMode="R"
 
 # 基本拡張子（拡張子にN設定時の値。標準：*.*;）
 $baseFileExtention="*.*;"
 
-# isOutLogDetailTsv：Grep結果をTSV形式に出力する（1:TSV形式に加工した結果を出力、0:標準のサクラエディタのGrep結果を出力）
-# tsvのためタブ文字は半角スペース4つに変換される。
-$isOutLogDetailTsv=1
+# isOutLogTsv：Grep結果をTSV形式に出力する（1:TSV形式に加工した結果を出力、0:標準のサクラエディタのGrep結果を出力）
+# tsvのためタブ文字は半角スペースに変換される。
+$isOutLogTsv=1
+
+# convertedTabString：Tab文字を変換したときの文字列
+$convertedTabString=" "
+
+# isOutputReplacedResult：置換想定結果の出力（1:する、0:しない）
+$isOutputReplacedResult=1
 
 # サクラエディタGrep標準設定
-$baseGrepOption="S"
+$baseGrepOption="SL"
 
 # サクラエディタコマンドラインオプション
 # 詳細はhttps://sakura-editor.github.io/help/HLP000109.html参照
@@ -35,7 +41,7 @@ $baseGrepOption="S"
 # W : 単語単位で探す
 # 1|2|3 : 結果出力形式。1か2か3のどれかを指定します。(1=ノーマル、2=ファイル毎、3=結果のみ)
 # K : -GCODE=99と同じ意味です。互換性のためだけに残されています。
-# F : ファイル毎最初のみ
+# F : ファイル毎最初のみ(検索のみ)
 # B : ベースフォルダー表示
 # G : フォルダー毎に表示
 # X : Grep実行後カレントディレクトリを移動しない
@@ -59,6 +65,6 @@ $keywordsFile = "keywords.tsv"
 # systemGrepOption（サクラエディタ実行時の基本オプション）
 $systemGrepOption="1XPU"
 # TSV形式時、ヘッダーフッターを出力しない
-if ($isOutLogDetailTsv -eq 1) {
+if ($isOutLogTsv -eq 1) {
 	$systemGrepOption = "H" + $systemGrepOption
 }
