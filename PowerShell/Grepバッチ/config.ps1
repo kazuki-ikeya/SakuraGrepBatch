@@ -3,10 +3,10 @@
 # ---- 以下、基本設定 ----
 
 # targetDir：Grepしたいフォルダ（絶対パスまたは相対パス指定）
-$targetDir="D:\SakuraGrepBatch\Grep対象ファイル"
+$targetDir="..\..\Grep対象ファイル"
 
 # isTargetDirRelationPath：Grepしたいフォルダで相対パス指定しているか（1:している、0:していない）
-$isTargetDirRelationPath=0
+$isTargetDirRelationPath=1
 if ($isTargetDirRelationPath -eq 1) {
 	# 絶対パスに変換する（tsvファイル出力時の結果に影響する）
 	$targetDir = Join-Path -Path $scriptDirectory -ChildPath $targetDir
@@ -16,8 +16,8 @@ if ($isTargetDirRelationPath -eq 1) {
 # grepMode：検索・置換実行切替（S:検索、R:置換）
 $grepMode="R"
 
-# 基本拡張子（拡張子にN設定時の値。標準：*.*;）
-$baseFileExtention="*.*;"
+# 基本拡張子（ファイル未設定時の値。標準：*.*;）
+$baseFileExtention="*.txt*;"
 
 # isOutLogTsv：Grep結果をTSV形式に出力する（1:TSV形式に加工した結果を出力、0:標準のサクラエディタのGrep結果を出力）
 # tsvのためタブ文字は半角スペースに変換される。

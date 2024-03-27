@@ -1,10 +1,10 @@
-sample
-var hello = "world"
-if hello == "world" {
-	return "Hello World!!"
-} else {
-	return "Oh My God!!"
-}
+	var hello = "world"
+
+	if hello == "world" {
+		return "Hello World!!"
+	} else {
+		return "Oh My God!!"
+	}
 
 ' ここからサンプル用
 
@@ -14,5 +14,18 @@ if hello == "world" {
 		var marks3 = "@[];:,./"
 		var marks4 = "`{}+*<>?_"
 		retrun marks1 + marks2 + marks3 + marks4
+	}
+	
+	private void func2() {
+		var sample1 = "サンプル1"
+		var sample2 = "サンプル2"
+		var sample3 = "サンプル3"
+		var sample4 = "サンプル4"
+		var sample5 = "サンプル5"
+		var sample6 = "サンプル6"
+		var sample7 = "サンプル7"
+		var sample8 = "サンプル8"
+		var sample9 = "サンプル9"
+		var sampleAdd = "サンプルAdd"
 	}
 
