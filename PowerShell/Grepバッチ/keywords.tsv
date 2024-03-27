@@ -4,4 +4,4 @@
 4		*.txt;		sample4	replaceSample4
 5	dir01	sample.txt;		sample5	replaceSample5
 6	dir01	sample.txt;		delete	
-7			R	(\t*)(var sampleAdd = "sampleAdd")\r\n	$1$2\r\n$1sampleAdd += "add"
+7			R	(\t*)(var sampleAdd = "ƒTƒ“ƒvƒ‹Add")\r\n	$1$2\r\n$1sampleAdd += "add"
